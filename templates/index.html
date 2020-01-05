@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Hotel Manager</title>
+
+</head>
+
+<body style="background-color: rgb(93, 94, 95);">
+    <div class='container'>
+        <div>
+            {% if message %}
+            <div style="text-align: center; background-color: darkred; height: 40px; color: white;">
+                <h6 style="padding-top: 10px;">{{ message | safe }}</h6>
+            </div>
+            {% endif %}
+            <form action="/submit" method="POST">
+                <div class="form-group">
+                    <h3 style="text-align: center;">Check In</h3>
+                    <input id="icon_prefix" type="text" name="guestFirstName" placeholder="First" style="color:rgb(218, 218, 218);">
+                    <input type="text" name="guestLastName" placeholder="Last" style="color:rgb(218, 218, 218);">
+                    <input type="text" name="roomNumber" placeholder="Room" style="color:rgb(218, 218, 218);">
+                </div>
+                <div style="text-align: center;">
+                    <button type="submit" class="btn-large waves-effect waves-dark">Check In</button>
+                </div>
+            </form>
+        </div>
+        <br>
+        <div style="text-align: center;">
+            <ul class="collection with-header">
+                <li class="collection-header"><h4>Checked In Guests:</h4></li>
+                {% for guest in guests %}
+                <li class="collection-item">
+                <form action="/delete/{{ guest.id }}" method="POST">
+                    <input type="hidden" name="{{ guest.id }}">
+                        <p style="font-size: 18px;">
+                        {{ guest.firstName }} 
+                        {{ guest.lastName }}
+                        </p>
+                        <p style="font-size: 16px;">
+                            Room: {{ guest.roomNumber}} 
+                        </p>
+                        
+                        
+                        <button style="margin-top: 15px" type="submit" class="btn-small red">Check Out</button>
+                </form>
+                </li>
+                
+                {% endfor %}
+                
+            </ul>
+            
+        </div>
+   
+    </div>
+
+   
+</body>
+</html>
