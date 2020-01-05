@@ -3,14 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder='templates')
 
-ENV = 'dev'
+ENV = 'prod'
 
 if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:luke0915@localhost/hotel_manager'
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = ''
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://guhytmgxhgxwus:258f2cbe2c2630c2adbd40b67e65a0e20bfab0053f8abd68e17a9b9bc1f1243f@ec2-107-21-93-51.compute-1.amazonaws.com:5432/dd65sko6br03ge'
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
