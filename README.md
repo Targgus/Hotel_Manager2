@@ -1,0 +1,1 @@
+Simplier version of Hotel Manager application. Written in Python using Flask framework. 
