@@ -2,6 +2,7 @@ import configparser
 
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from models import Guest, db
 
 
 app = Flask(__name__, template_folder='templates')
@@ -20,19 +21,8 @@ else:
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-
-class Guest(db.Model):
-    __tablename__ = 'guests'
-    id = db.Column(db.Integer, primary_key = True, unique=True)
-    firstName = db.Column(db.String(100))
-    lastName = db.Column(db.String(100))
-    roomNumber = db.Column(db.Integer)
-
-    def __init__(self, firstName, lastName, roomNumber):
-        self.firstName = firstName
-        self.lastName = lastName
-        self.roomNumber = roomNumber
+# db = SQLAlchemy(app)
+db.init_app(app)
 
 # basic route
 @app.route('/')
@@ -75,7 +65,8 @@ def submit():
 
 @app.route("/delete/<int:guestid>", methods=['GET', 'POST'])
 def delete(guestid):
-    Guest.query.filter_by(id=guestid).delete()
+    print(guestid)
+    Guest.query.filter(Guest.id==guestid).delete()
     db.session.commit()
     return render_template('index.html', guests=Guest.query.all())
 
