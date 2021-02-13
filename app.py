@@ -2,7 +2,7 @@ import configparser
 
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from models import Guest, db
+from models.models import Guest, db
 
 
 app = Flask(__name__, template_folder='templates')
