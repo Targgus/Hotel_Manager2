@@ -1,5 +1,5 @@
 # import pytest
-from models import Guest
+from models.models import Guest
 
 def test_guest_model():
     guest = Guest('John', 'Henson', 10)
