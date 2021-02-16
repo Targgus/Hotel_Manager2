@@ -38,8 +38,6 @@ jobs:
       run: |
         pytest
     - name: Deploy to Heroku
-    - uses: akhileshns/heroku-deploy@v3.11.10
-      with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-        heroku_email: "jlhenson13@gmail.com"
+      run: |
+        git remote add heroku https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+        git push heroku HEAD:master -f
